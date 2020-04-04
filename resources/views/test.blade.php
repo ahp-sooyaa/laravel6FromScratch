@@ -8,7 +8,6 @@
 </head>
 <body>
     <h1>Hello from test.blade.php</h1>
-    <p><?= htmlspecialchars($name, ENT_QUOTES) ?></p>
-    <p>{{ $name }}</p> {{-- this code changed to <p><?php echo e($name); ?></p> --}}
+    <p>{{ $post->body }}</p> {{-- this code changed to <p><?php echo e($name); ?></p> --}}
 </body>
 </html>

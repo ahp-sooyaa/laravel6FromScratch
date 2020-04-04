@@ -13,8 +13,23 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function() {
-    return view('test' , [
-        'name' => request('name')
-    ]);
-});
+// Route::get('/post/{post}', function ($post) {
+//     $posts = [
+//         'my-first-post' => 'hello from first post',
+//         'second-post' => 'hello from second post',
+//         'balh' => 'hello from balh'
+//     ];
+
+//     if (!array_key_exists($post, $posts)) {
+//         abort('404', 'sorry that is not found');
+//     }
+
+//     return view(
+//         'test',
+//         [
+//             'post' => $posts[$post]
+//         ]
+//     );
+// });
+
+Route::get('/post/{post}', 'PostsController@show');
