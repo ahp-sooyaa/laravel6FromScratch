@@ -1,5 +1,6 @@
 <?php
 
+use App\Articles;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -32,4 +33,19 @@ use Illuminate\Support\Facades\Route;
 //     );
 // });
 
-Route::get('/post/{post}', 'PostsController@show');
+Route::get('/welcome', function () {
+    return view('welcome');
+});
+
+Route::get('/about', function () {
+    $articles = Articles::latest()->get();
+
+    return view('about', [
+        'articles' => $articles
+    ]);
+});
+
+Route::get('/articles', 'ArticlesController@index');
+Route::post('/articles', 'ArticlesController@store');
+Route::get('/articles/create', 'ArticlesController@create');
+Route::get('/articles/{article}', 'ArticlesController@show');
