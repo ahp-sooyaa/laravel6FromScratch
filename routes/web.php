@@ -1,6 +1,6 @@
 <?php
 
-use App\Articles;
+use App\Article;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,38 +14,29 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/post/{post}', function ($post) {
-//     $posts = [
-//         'my-first-post' => 'hello from first post',
-//         'second-post' => 'hello from second post',
-//         'balh' => 'hello from balh'
-//     ];
+Auth::routes();
 
-//     if (!array_key_exists($post, $posts)) {
-//         abort('404', 'sorry that is not found');
-//     }
-
-//     return view(
-//         'test',
-//         [
-//             'post' => $posts[$post]
-//         ]
-//     );
-// });
-
-Route::get('/welcome', function () {
+Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/contact', 'ContactController@show');
+Route::post('/contact', 'ContactController@store');
+
 Route::get('/about', function () {
-    $articles = Articles::latest()->get();
+    $articles = Article::latest()->get();
 
     return view('about', [
         'articles' => $articles
     ]);
 });
 
-Route::get('/articles', 'ArticlesController@index');
-Route::post('/articles', 'ArticlesController@store');
+Route::get('/articles', 'ArticlesController@index')->name('articles.index');
+Route::post('/articles', 'ArticlesController@store')->name('articles.store');
 Route::get('/articles/create', 'ArticlesController@create');
-Route::get('/articles/{article}', 'ArticlesController@show');
+Route::get('/articles/{article}', 'ArticlesController@show')->name('articles.show');
+Route::get('/articles/{article}/edit', 'ArticlesController@edit');
+Route::put('/articles/{article}', 'ArticlesController@update');
+Route::get('/payments/create', 'PaymentController@create')->middleware('auth');
+Route::get('/payments', 'PaymentController@store')->middleware('auth');

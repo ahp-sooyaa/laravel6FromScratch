@@ -2,92 +2,75 @@
 
 namespace App\Http\Controllers;
 
-use App\Articles;
-use Illuminate\Http\Request;
+use App\Article;
+use App\Tag;
 
 class ArticlesController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        $articles = Articles::latest()->get();
+        if (request('tag')) {
+            $articles = Tag::where('name', request('tag'))->firstOrFail()->articles;
+        } else {
+            $articles = Article::latest()->get();
+        }
 
-        return view('articles.index', [
-            'articles' => $articles
-        ]);
+        return view('articles.index', ['articles' => $articles]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        return view('/articles.create');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store()
-    {
-        die('hello');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Articles  $articles
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        $articles = Articles::find($id);
-
-        return view('articles.show', [
-            'articles' => $articles
+        return view('/articles.create', [
+            'tags' => Tag::all()
         ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Articles  $articles
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Articles $articles)
+    public function store()
+    {;
+        $this->validateArticle();
+        $article = new Article(request(['title', 'excerpt', 'body']));
+        $article->user_id = 1;
+        $article->save();
+
+        $article->tags()->attach(request('tags'));
+
+        return redirect(route('articles.store'));
+    }
+
+    public function show(Article $article)
+    {
+        // $articles = Article::findOrFail($id);
+
+        return view('articles.show', [
+            'article' => $article
+        ]);
+    }
+
+    public function edit(Article $article)
+    {
+        // $article = Article::find($id);
+        return view('articles.edit', compact('article'));
+    }
+
+    public function update(Article $article)
+    {
+        $article->update($this->validateArticle());
+
+        return redirect($article->path());
+    }
+
+    public function destroy(Articles $article)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Articles  $articles
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Articles $articles)
+    protected function validateArticle()
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Articles  $articles
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Articles $articles)
-    {
-        //
+        return request()->validate([
+            'title' => 'required',
+            'excerpt' => 'required',
+            'body' => 'required',
+            'tags' => 'exists:tags,id'
+        ]);
     }
 }

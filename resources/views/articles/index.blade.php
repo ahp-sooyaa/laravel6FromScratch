@@ -6,8 +6,8 @@
         <section id="One" class="wrapper style3">
             <div class="inner">
                 <header class="align-center">
-                    <p>Eleifend vitae urna</p>
-                    <h2>Generic Page Template</h2>
+                    <p>Welcome from My Web😍</p>
+                    <h2>{{ucfirst(trans(Request::path()))}} Page</h2>
                 </header>
             </div>
         </section>
@@ -17,20 +17,20 @@
             <div class="inner">
                 <div class="box">
                     <div class="content">
-                        <header class="align-center">
-                            <p>maecenas sapien feugiat ex purus</p>
-                            <h2>Lorem ipsum dolor</h2>
-                        </header>
                         <ul>
-                            @foreach ($articles as $article)
+                            @forelse ($articles as $article)
                             <li>
                                 <h3>
-                                    <a href="/articles/{{ $article->id }}">{{$article->title}}</a>
+                                    <a href="{{ $article->path() }}">
+                                        {{$article->title}}
+                                    </a>
                                 </h3>
                                 <img src="../images/pic01.jpg" alt="">
                                 <p>{{$article->excerpt}}</p>
                             </li>
-                            @endforeach
+                            @empty
+                                <p>No relevant articles for this tag!.</p>
+                            @endforelse
                         </ul>
                     </div>
                 </div>

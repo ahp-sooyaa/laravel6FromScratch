@@ -1,156 +1,104 @@
-@extends('layout')
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
 
-@section('content')
+        <title>Hielo</title>
 
-<!-- Banner -->
-<section class="banner full">
-    <article>
-        <img src="../images/slide01.jpg" alt="" />
-        <div class="inner">
-            <header>
-                <p>A free responsive web site template by <a href="https://templated.co">TEMPLATED</a></p>
-                <h2>Hielo</h2>
-            </header>
-        </div>
-    </article>
-    <article>
-        <img src="../images/slide02.jpg" alt="" />
-        <div class="inner">
-            <header>
-                <p>Lorem ipsum dolor sit amet nullam feugiat</p>
-                <h2>Magna etiam</h2>
-            </header>
-        </div>
-    </article>
-    <article>
-        <img src="../images/slide03.jpg"  alt="" />
-        <div class="inner">
-            <header>
-                <p>Sed cursus aliuam veroeros lorem ipsum nullam</p>
-                <h2>Tempus dolor</h2>
-            </header>
-        </div>
-    </article>
-    <article>
-        <img src="../images/slide04.jpg"  alt="" />
-        <div class="inner">
-            <header>
-                <p>Adipiscing lorem ipsum feugiat sed phasellus consequat</p>
-                <h2>Etiam feugiat</h2>
-            </header>
-        </div>
-    </article>
-    <article>
-        <img src="../images/slide05.jpg"  alt="" />
-        <div class="inner">
-            <header>
-                <p>Ipsum dolor sed magna veroeros lorem ipsum</p>
-                <h2>Lorem adipiscing</h2>
-            </header>
-        </div>
-    </article>
-</section>
+        <!-- Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
 
-<!-- One -->
-<section id="one" class="wrapper style2">
-    <div class="inner">
-        <div class="grid-style">
+        <!-- Styles -->
+        <style>
+            html, body {
+                background-color: #fff;
+                color: #636b6f;
+                font-family: 'Nunito', sans-serif;
+                font-weight: 200;
+                height: 100vh;
+                margin: 0;
+            }
 
-            <div>
-                <div class="box">
-                    <div class="image fit">
-                        <img src="../images/pic02.jpg" alt="" />
-                    </div>
-                    <div class="content">
-                        <header class="align-center">
-                            <p>maecenas sapien feugiat ex purus</p>
-                            <h2>Lorem ipsum dolor</h2>
-                        </header>
-                        <p> Cras aliquet urna ut sapien tincidunt, quis malesuada elit facilisis. Vestibulum sit amet tortor velit. Nam elementum nibh a libero pharetra elementum. Maecenas feugiat ex purus, quis volutpat lacus placerat malesuada.</p>
-                        <footer class="align-center">
-                            <a href="#" class="button alt">Learn More</a>
-                        </footer>
-                    </div>
+            .full-height {
+                height: 100vh;
+            }
+
+            .flex-center {
+                align-items: center;
+                display: flex;
+                justify-content: center;
+            }
+
+            .position-ref {
+                position: relative;
+            }
+
+            .top-right {
+                position: absolute;
+                right: 10px;
+                top: 18px;
+            }
+
+            .content {
+                text-align: center;
+            }
+
+            .title {
+                font-size: 84px;
+            }
+
+            .links > a {
+                color: #636b6f;
+                padding: 0 25px;
+                font-size: 13px;
+                font-weight: 600;
+                letter-spacing: .1rem;
+                text-decoration: none;
+                text-transform: uppercase;
+            }
+
+            .m-b-md {
+                margin-bottom: 30px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="flex-center position-ref full-height">
+            @if (Route::has('login'))
+                <div class="top-right links">
+                    @auth
+                        <a href="{{ url('/home') }}">Home</a>
+                    @else
+                        <a href="{{ route('login') }}">Login</a>
+
+                        @if (Route::has('register'))
+                            <a href="{{ route('register') }}">Register</a>
+                        @endif
+                    @endauth
                 </div>
-            </div>
+            @endif
 
-            <div>
-                <div class="box">
-                    <div class="image fit">
-                        <img src="../images/pic03.jpg" alt="" />
-                    </div>
-                    <div class="content">
-                        <header class="align-center">
-                            <p>mattis elementum sapien pretium tellus</p>
-                            <h2>Vestibulum sit amet</h2>
-                        </header>
-                        <p> Cras aliquet urna ut sapien tincidunt, quis malesuada elit facilisis. Vestibulum sit amet tortor velit. Nam elementum nibh a libero pharetra elementum. Maecenas feugiat ex purus, quis volutpat lacus placerat malesuada.</p>
-                        <footer class="align-center">
-                            <a href="#" class="button alt">Learn More</a>
-                        </footer>
-                    </div>
+            <div class="content">
+                <div class="title m-b-md">
+                    @if(Auth::check())
+                        Hielo , {{Auth::user()->name}}
+                    @else
+                        Hielo , Please sign in!
+                    @endif
                 </div>
-            </div>
 
-        </div>
-    </div>
-</section>
-
-<!-- Two -->
-<section id="two" class="wrapper style3">
-    <div class="inner">
-        <header class="align-center">
-            <p>Nam vel ante sit amet libero scelerisque facilisis eleifend vitae urna</p>
-            <h2>Morbi maximus justo</h2>
-        </header>
-    </div>
-</section>
-
-<!-- Three -->
-<section id="three" class="wrapper style2">
-    <div class="inner">
-        <header class="align-center">
-            <p class="special">Nam vel ante sit amet libero scelerisque facilisis eleifend vitae urna</p>
-            <h2>Morbi maximus justo</h2>
-        </header>
-        <div class="gallery">
-            <div>
-                <div class="image fit">
-                    <a href="#"><img src="../images/pic01.jpg" alt="" /></a>
-                </div>
-            </div>
-            <div>
-                <div class="image fit">
-                    <a href="#"><img src="../images/pic02.jpg" alt="" /></a>
-                </div>
-            </div>
-            <div>
-                <div class="image fit">
-                    <a href="#"><img src="../images/pic03.jpg" alt="" /></a>
-                </div>
-            </div>
-            <div>
-                <div class="image fit">
-                    <a href="#"><img src="../images/pic04.jpg" alt="" /></a>
+                <div class="links">
+                    <a href="https://laravel.com/docs">Docs</a>
+                    <a href="https://laracasts.com">Laracasts</a>
+                    <a href="https://laravel-news.com">News</a>
+                    <a href="https://blog.laravel.com">Blog</a>
+                    <a href="https://nova.laravel.com">Nova</a>
+                    <a href="https://forge.laravel.com">Forge</a>
+                    <a href="https://vapor.laravel.com">Vapor</a>
+                    <a href="https://github.com/laravel/laravel">GitHub</a>
                 </div>
             </div>
         </div>
-    </div>
-</section>
-
-
-<!-- Footer -->
-<footer id="footer">
-    <div class="container">
-        <ul class="icons">
-            <li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
-            <li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
-            <li><a href="#" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
-            <li><a href="#" class="icon fa-envelope-o"><span class="label">Email</span></a></li>
-        </ul>
-    </div>
-    <div class="copyright">
-        &copy; Untitled. All rights reserved.
-    </div>
-</footer>
-@endsection
+    </body>
+</html>

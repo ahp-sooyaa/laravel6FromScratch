@@ -11,8 +11,8 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		{{-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"> --}}
 		{{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css"> --}}
-		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.1/css/bulma.css">
-		<link rel="stylesheet" href="../assets/css/main.css"/>
+		@yield('head')
+		<link rel="stylesheet" href="../../assets/css/main.css"/>
 	</head>
 	<body>
 		<!-- Header -->
@@ -23,9 +23,10 @@
     	<!-- Nav -->
         <nav id="menu">
             <ul class="links">
-				<li><a class="{{ Request::path() === 'welcome' ? 'active-menu' : '' }}" href="/welcome">Home</a></li>
+				<li><a class="{{ Request::path() === 'welcome' ? 'active-menu' : '' }}" href="/home">Home</a></li>
                 <li><a class="{{ Request::path() === 'about' ? 'active-menu' : '' }}" href="/about">About Us</a></li>
-                <li><a class="{{ Request::path() === 'articles' ? 'active-menu' : '' }}" href="/articles">Articles</a></li>
+				<li><a class="{{ Request::path() === 'articles' ? 'active-menu' : '' }}" href="/articles">Articles</a></li>
+				<li><a class="{{ Request::path() === 'contact' ? 'active-menu' : '' }}" href="/contact">Contact Us</a></li>
             </ul>
         </nav>
 			
@@ -37,6 +38,5 @@
 			<script src="../assets/js/skel.min.js"></script>
 			<script src="../assets/js/util.js"></script>
 			<script src="../assets/js/main.js"></script>
-
 	</body>
 </html>

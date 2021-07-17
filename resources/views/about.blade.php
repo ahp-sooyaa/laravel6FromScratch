@@ -6,8 +6,8 @@
         <section id="One" class="wrapper style3">
             <div class="inner">
                 <header class="align-center">
-                    <p>Eleifend vitae urna</p>
-                    <h2>Generic Page Template</h2>
+                    <p>Welcome from My Web😍</p>
+                    <h2>{{ucfirst(trans(Request::path()))}} Page</h2>
                 </header>
             </div>
         </section>
